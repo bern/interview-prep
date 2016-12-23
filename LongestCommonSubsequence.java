@@ -30,6 +30,7 @@ public class LongestCommonSubsequence {
       }
     }
 
+    System.out.println("DP Matrix");
     for(int r = 0; r < dp.length; r++) {
       for(int c = 0; c < dp[r].length; c++) {
         System.out.print(dp[r][c]+" ");
@@ -37,13 +38,30 @@ public class LongestCommonSubsequence {
       System.out.println();
     }
 
-    int subLength = dp[dp.length][dp[0].length];
+    int subLength = dp[dp.length-1][dp[0].length-1];
     char[] longestSubsequence = new char[subLength];
 
     int ind = subLength-1;
+    int r = dp.length-1; int c = dp[0].length-1;
+    int currentScore = subLength;
     while(ind >= 0) {
-      ind--;
+      if(dp[r][c-1] == currentScore) {
+        c--;
+      } else if(dp[r-1][c] == currentScore) {
+        r--;
+      } else {
+        longestSubsequence[ind] = a.charAt(c-1);
+        currentScore = ind;
+        c--; r--; ind--;
+      }
     }
 
+    System.out.println();
+
+    System.out.print("Longest common subsequence: ");
+    for(char ch: longestSubsequence) {
+      System.out.print(ch);
+    }
+    System.out.println();
   }
 }
